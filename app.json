@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "icon": "./assets/app-icon.png",
+    "extra": {
+      "eas": {
+        "projectId": "3c2be2ba-845b-4c50-9a95-0f0cab03617d"
+      }
+    },
+    "android": {
+      "package": "com.ogzdgzl.movellapp"
+    }
+  }
+}
