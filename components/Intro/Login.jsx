@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, TextInput, View, CheckBox, TouchableOpacity } from "react-native";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Checkbox from 'expo-checkbox';
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -13,10 +13,24 @@ const Login = () => {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
   const [showPassword, setShowPassword] = useState(false)
+  const [token, setToken] = useState();
 
   const handleView = () => {
     setShowPassword(!showPassword)
   }
+
+  const getToken = async () => {
+    try {
+      const token = await SecureStore.getItemAsync("tokenKey");
+      if (token) {
+        setToken(token);
+      } else {
+        navigation.navigate("Login");
+      }
+    } catch (error) {
+      console.error("Token alınırken hata oluştu:", error);
+    }
+  };
 
   const login = async() =>{
     try{
@@ -27,7 +41,6 @@ const Login = () => {
           password: password,
         }
       );
-      console.log('response', response.data);
       if(response){
         if(response.data.role !== 'admin'){
           await SecureStore.setItemAsync('tokenKey', response.data.token);
@@ -48,6 +61,16 @@ const Login = () => {
     });
     }
   }
+
+  useEffect(() => {
+    getToken()
+  }, [])
+
+  useEffect(() => {
+    if(token) navigation.navigate('Anasayfa')
+  }, [token])
+  
+  
 
   return (
 

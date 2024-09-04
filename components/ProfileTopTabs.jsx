@@ -30,21 +30,9 @@ function ProfileTopTabs() {
 
   const navigation = useNavigation();
 
-
-  // console.log("date", date);
-
-  // console.log('nav', navigation);
-  console.log("slug", navigation);
-
-  
-
-  // console.log('token', token);
-
   const getToken = async () => {
     try {
       const token = await SecureStore.getItemAsync("tokenKey");
-      // console.log('getToken', token);
-
       if (token) {
         setToken(token);
       } else {
@@ -94,7 +82,7 @@ function ProfileTopTabs() {
       }
     } catch (error) {
       console.log("error", error);
-      logOut()
+      logOut();
       // navigation.navigate('Login')
     }
   };
@@ -154,9 +142,6 @@ function ProfileTopTabs() {
   const calculateAge = () => {
     const today = new Date();
     const birthdateDate = new Date(userData?.age);
-
-    console.log('birthdate', birthdateDate);
-    
 
     let age = today.getFullYear() - birthdateDate.getFullYear();
     const monthDiff = today.getMonth() - birthdateDate.getMonth();
@@ -220,7 +205,13 @@ function ProfileTopTabs() {
             source={{ uri: userData?.photoUrl }}
           />
         </View>
-        <Text className="text-center text-xl font-light mt-4">
+      </View>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ flexGrow: 1 }}
+      >
+        <Text className="text-center text-xl font-light">
           {userData?.name}
         </Text>
         <Text className="text-center text-sm text-[#242424] font-light">
@@ -230,22 +221,19 @@ function ProfileTopTabs() {
           {age ? age : "Güncelleyiniz"} -{" "}
           {userData?.location ? userData?.location : "Güncelleyiniz"}
         </Text>
-        <Text className="text-center text-sm text-[#242424]">{userData?.role}</Text>
+        <Text className="text-center text-sm text-[#242424]">
+          {userData?.role}
+        </Text>
         {userData?.role === "teacher" ? (
-              <Text className="text-center text-sm text-[#242424] font-light">
-                {userData?.courses.length} kurs
-              </Text>
-            ) : (
-              <Text className="text-center text-sm text-[#242424] font-light mt-2">
-                {userData?.courses.length} katılım
-              </Text>
-            )}
-      </View>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ flexGrow: 1 }}
-      >
+          <Text className="text-center text-sm text-[#242424] font-light">
+            {userData?.courses.length} kurs
+          </Text>
+        ) : (
+          <Text className="text-center text-sm text-[#242424] font-light mt-2">
+            {userData?.courses.length} katılım
+          </Text>
+        )}
+
         {
           role === "student" &&
             repeatObject().map((item, index) => (

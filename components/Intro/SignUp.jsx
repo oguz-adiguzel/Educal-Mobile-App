@@ -11,12 +11,14 @@ import {
   Button,
   ScrollView,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
 // import {launchImageLibrary} from 'react-native-image-picker';
 import * as ImagePicker from "expo-image-picker";
 import axios from "axios";
+import * as SecureStore from 'expo-secure-store';
+
 
 const SignUp = () => {
   const navigation = useNavigation();
@@ -30,12 +32,25 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [photo, setImageUri] = useState(null);
   const [role, setRole] = useState("student");
-
-  // console.log('role', role);
+  const [token, setToken] = useState();
 
   const handleView = () => {
     setShowPassword(!showPassword);
   };
+
+  const getToken = async () => {
+    try {
+      const token = await SecureStore.getItemAsync("tokenKey");
+      if (token) {
+        setToken(token);
+      } else {
+        // navigation.navigate("Login");
+      }
+    } catch (error) {
+      console.error("Token alınırken hata oluştu:", error);
+    }
+  };
+
   const signUpFunc = async () => {
     const formData = new FormData();
     formData.append("name", name);
@@ -43,8 +58,6 @@ const SignUp = () => {
     formData.append("password", password);
     formData.append("image", photo);
     formData.append("role", role);
-
-    console.log("data", formData);
 
     try {
       const response = await axios.post(
@@ -98,6 +111,14 @@ const SignUp = () => {
     }
   };
 
+  useEffect(() => {
+    getToken()
+  }, [])
+
+  useEffect(() => {
+    if(token) navigation.navigate('Anasayfa')
+  }, [token])
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -133,15 +154,7 @@ const SignUp = () => {
             value={email}
             onChangeText={setEmail}
           />
-          <TouchableOpacity
-            onPress={handleView}
-            className="absolute z-20 right-6 top-[110px]"
-          >
-            <Image
-              className=" w-4 z-10"
-              source={require("../../assets/eye-slash.png")}
-            />
-          </TouchableOpacity>
+         
           <TextInput
             className={
               password
@@ -153,6 +166,15 @@ const SignUp = () => {
             value={password}
             onChangeText={setPassword}
           />
+           <TouchableOpacity
+            onPress={handleView}
+            className="absolute z-20 right-6 top-[198px]"
+          >
+            <Image
+              className=" w-4 z-10"
+              source={require("../../assets/eye-slash.png")}
+            />
+          </TouchableOpacity>
           <View
             style={{
               backgroundColor: "#E0E0E0",
@@ -422,8 +444,8 @@ const SignUp = () => {
                   <Text>
                     Herhangi bir sorunuz veya talebiniz olması durumunda Educal
                     Eğitim Teknolojileri Ltd. Şti.'ne şu iletişim kanallarından
-                    ulaşabilirsiniz: oguz_adiguzel@outlook.com, 0552 428 9743,
-                    Eskişehir/Tepebaşı.
+                    ulaşabilirsiniz: oguz_adiguzel@outlook.com,
+                    Eskişehir.
                   </Text>
 
                   <Pressable

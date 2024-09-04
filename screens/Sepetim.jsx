@@ -55,9 +55,6 @@ const Sepetim = () => {
   useEffect(() => {
     filteredData()
   }, [filterId])
-  
-
-  // console.log("data", data);
 
   return (
     <View className="w-[100%] px-5 py-5 mx-auto bg-gray-100">

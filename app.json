@@ -1,13 +1,12 @@
 {
   "expo": {
-    "icon": "./assets/app-icon.png",
     "extra": {
       "eas": {
-        "projectId": "3c2be2ba-845b-4c50-9a95-0f0cab03617d"
+        "projectId": "85e9101e-081a-4862-999d-94294f5e1c53"
       }
     },
     "android": {
-      "package": "com.ogzdgzl.movellapp"
+      "package": "com.ogzdgzl.educalapp"
     }
   }
 }

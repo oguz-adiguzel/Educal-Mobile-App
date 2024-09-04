@@ -42,8 +42,6 @@ const Reviews = ({id, slug }) => {
   const getToken = async () => {
     try {
       const token = await SecureStore.getItemAsync("tokenKey");
-      // console.log('getToken', token);
-
       if (token) {
         setToken(token);
       } else {

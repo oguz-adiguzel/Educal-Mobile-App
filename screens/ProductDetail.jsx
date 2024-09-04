@@ -31,13 +31,7 @@ const ProductDetail = ({ route }) => {
   const [find, setFind] = useState(null);
   const [userData, setUserData] = useState();
 
-  // const token = SecureStore.getItemAsync("tokenKey");
-
   const navigation = useNavigation();
-
-  // console.log("course", course);
-  // console.log("StudentCourse", studentCourses);
-  // console.log("find", find);
 
   const getToken = async () => {
     try {
@@ -87,10 +81,6 @@ const ProductDetail = ({ route }) => {
   };
 
   const getStudentCourse = async () => {
-    // const token = await localStorage.getItem("tokenKey");
-    // const token = await Cookies.get("tokenKey");
-    console.log('istek atıyor');
-    
     try {
       const response = await axios.get(
         "https://educal-api.onrender.com/users/getTeacherCourses",
@@ -112,8 +102,6 @@ const ProductDetail = ({ route }) => {
     const courses = await studentCourses.find(
       (item) => item === course.course?._id
     );
-    console.log("find course içi", courses);
-
     if (courses) {
       setFind(true);
     } else {

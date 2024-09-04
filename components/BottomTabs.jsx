@@ -10,6 +10,10 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import Feather from '@expo/vector-icons/Feather';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Entypo from '@expo/vector-icons/Entypo';
+import { useEffect, useState } from "react";
+import * as SecureStore from "expo-secure-store";
+import AddCourse from "../screens/AddCourse";
+
 
 
 const Tab = createMaterialBottomTabNavigator();
@@ -18,6 +22,23 @@ function BottomTabs() {
   function ProfileScreen() {
     return <ProfileTopTabs />;
   }
+
+  const [role, setRole] = useState()
+
+  const getRole = async () => {
+    try {
+      const role = await SecureStore.getItemAsync("role");
+      setRole(role);
+    } catch (error) {
+      console.error("Role alınırken hata oluştu:", error);
+    }
+  };
+
+  useEffect(() => {
+   getRole()
+  }, [])
+  
+
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -49,6 +70,17 @@ function BottomTabs() {
           ),
         }}
       />
+      { role === 'teacher' && <Tab.Screen
+        name="Ekle"
+        component={AddCourse}
+        options={{
+          tabBarLabel: "Ekle",
+          tabBarIcon: ({ color }) => (
+            // <MaterialCommunityIcons name="basket" size={26} />
+            <Ionicons name="add" size={28} color="blue" />
+          ),
+        }}
+      />}
       <Tab.Screen
         name="Bildirimler"
         component={Notification}

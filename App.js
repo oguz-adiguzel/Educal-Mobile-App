@@ -20,6 +20,7 @@ import PaymentMethod from "./screens/PaymentMethod";
 import Bildirimler from "./screens/Bildirimler";
 import Payment from "./screens/Payment";
 import Address from "./screens/Address";
+import AddCourse from "./screens/AddCourse";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -111,6 +112,11 @@ export default function App() {
            <Stack.Screen
             name="Address"
             component={Address}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="AddCourse"
+            component={AddCourse}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
