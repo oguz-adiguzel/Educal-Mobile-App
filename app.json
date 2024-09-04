@@ -7,6 +7,9 @@
     },
     "android": {
       "package": "com.ogzdgzl.educalapp"
-    }
+    },
+    "name": "Educal",
+    "slug": "educal-app",
+    "icon": "./assets/app-icon.png" 
   }
 }
