@@ -10,20 +10,7 @@ import React from "react";
 import ProductCard from "./ProductCard";
 
 const Opportunity = () => {
-  const data = [
-    {
-      url: require("../../assets/aü.png"),
-    },
-    {
-      url: require("../../assets/logoyazilim.png"),
-    },
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-  ];
+ 
   return (
     <View className="w-[95%] mx-auto mt-5">
       <View

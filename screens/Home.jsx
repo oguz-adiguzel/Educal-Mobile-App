@@ -2,7 +2,6 @@ import { StyleSheet, View, Text, ScrollView } from "react-native";
 import React from "react";
 import Categories from "../components/Home/Categories";
 import ShowCase from "../components/Home/ShowCase";
-import Discount from "../components/Home/Discount";
 import DiscountCard from "../components/Home/DiscountCard";
 import Opportunity from "../components/Home/Opportunity";
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -23,7 +22,6 @@ const Home = () => {
           <ShowCase />
           <Opportunity />
           <Advert />
-          {/* <Discount /> */}
           <Footer />
         </View>
       </ScrollView>
